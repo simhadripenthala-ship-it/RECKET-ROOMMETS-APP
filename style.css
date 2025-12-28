@@ -1,0 +1,248 @@
+/* ================================
+   🌌 CYBER NEON DASHBOARD COLOR PALETTE (LIGHT NEON VERSION)
+================================ */
+:root {
+  /* Background & UI */
+  --bg-gradient: linear-gradient(135deg, #2ece6b, #cce0ff);
+  --bg-section: rgba(210, 68, 68, 0.85);
+  --accent: #ff2dd0;
+  --accent-light: #ff6ee3;
+  --accent-soft: rgba(255, 45, 208, 0.15);
+  --accent-alt: #00f0ff;
+
+  /* Status Colors */
+  --success: #00ff95;
+  --warning: #ffdd00;
+  --danger: #ff4c4c;
+  --info: #3d5cff;
+
+  /* Typography */
+  --text-dark: #1a1a1a;
+  --text-light: #ffffff;
+  --muted: rgba(0, 0, 0, 0.4);
+
+  /* UI Effects */
+  --glass: rgba(255, 255, 255, 0.85);
+  --glass-strong: rgba(255, 255, 255, 0.95);
+  --stroke: rgba(0, 0, 0, 0.08);
+  --shadow: 0 6px 35px rgba(0, 0, 0, 0.15);
+  --radius: 18px;
+  --transition: all 0.35s ease;
+  --glow: 0 0 25px rgba(255, 45, 208, 0.5);
+  --focus-ring: 0 0 0 4px rgba(255, 45, 208, 0.2),
+    0 0 0 3px rgba(255, 110, 220, 0.3);
+}
+
+/* ================================
+   🧱 BASE STYLES
+================================ */
+* {
+  box-sizing: border-box;
+  font-family: "Orbitron", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto,
+    Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+body {
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================
+   🌌 BACKGROUND
+================================ */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(800px 600px at 20% 25%, rgba(255, 45, 208, 0.2), transparent 50%),
+    radial-gradient(900px 700px at 80% 75%, rgba(0, 240, 255, 0.15), transparent 50%);
+  animation: moveBg 18s infinite alternate ease-in-out;
+}
+@keyframes moveBg {
+  from {
+    background-position: left top, right bottom;
+  }
+  to {
+    background-position: left bottom, right top;
+  }
+}
+
+/* ================================
+   🧭 NAVBAR
+================================ */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar-brand,
+.nav-title {
+  font-weight: 900;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1.7rem;
+  text-shadow: 0 0 12px var(--accent);
+  letter-spacing: 1px;
+}
+.navbar .nav-link {
+  color: var(--text-dark);
+  opacity: 0.9;
+  transition: var(--transition);
+}
+.navbar .nav-link:hover {
+  color: var(--accent-light);
+  text-shadow: 0 0 15px var(--accent-light);
+}
+.navbar .nav-link.logout {
+  color: var(--danger);
+  text-shadow: 0 0 10px var(--danger);
+}
+
+/* ================================
+   📝 FORMS (FIXED)
+================================ */
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  color: var(--text-dark);
+  background: var(--glass);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  transition: all 0.35s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent-light);
+  box-shadow: 0 0 20px var(--accent-light);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Specific override for dark-glass login boxes */
+.signup-box input[type="text"],
+.signup-box input[type="password"] {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.signup-box input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ================================
+   💫 SIGNUP / LOGIN BOX
+================================ */
+.signup-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 15px;
+  padding: 2.5rem;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 340px;
+  margin: 5% auto;
+}
+
+.signup-box h2 {
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-light);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px var(--accent-light);
+}
+
+/* ================================
+   ♿ LINKS
+================================ */
+a {
+  color: #ffd3ff;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--accent-light);
+}
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .navbar-brand,
+  .nav-title {
+    font-size: 1.4rem;
+  }
+}

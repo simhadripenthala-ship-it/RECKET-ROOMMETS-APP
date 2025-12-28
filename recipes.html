@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/recipes.css') }}">
+<style>
+  .search-box {
+    max-width: 500px;
+    margin: 0 auto 25px auto;
+  }
+  .recipe-card {
+    transition: all 0.3s ease;
+  }
+  .recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .steps-section {
+    display: none;
+    transition: all 0.4s ease;
+  }
+  .btn-toggle {
+    background: #f5f5f5;
+    border: none;
+    color: #333;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .btn-toggle:hover {
+    background: #e2e2e2;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="page-title text-center mb-4">🍳 Delicious Recipes Collection</h2>
+
+<!-- 🔍 Live Search -->
+<div class="search-box text-center">
+  <input type="text" id="recipeSearch" class="form-control form-control-lg rounded-pill shadow-sm"
+         placeholder="🔍 Search recipes by name, tag, or ingredient...">
+</div>
+
+<div class="recipes-grid" id="recipeList">
+  {% for r in items %}
+  <div class="recipe-card shadow-sm rounded-4 p-3 bg-light" data-name="{{ r.name|lower }}" data-tags="{{ r.tags|join(' ')|lower }}" data-ingredients="{{ r.ingredients|join(' ')|lower }}">
+    <div class="head d-flex align-items-center mb-2">
+      <span class="icon fs-3 me-2">{{ r.icon }}</span>
+      <h5 class="title fw-bold mb-0">{{ r.name }}</h5>
+    </div>
+
+    <p class="desc text-muted">{{ r.desc }}</p>
+
+    <div class="meta my-2">
+      <span class="badge bg-warning text-dark me-1">⏱ {{ r.time }} min</span>
+      <span class="badge bg-info text-dark me-1">🍽️ Serves {{ r.serves }}</span>
+      <span class="badge bg-secondary text-light">{{ r.difficulty }}</span>
+    </div>
+
+    <div class="tags mt-2 mb-3">
+      {% for t in r.tags %}
+        <span class="chip badge bg-light text-dark border me-1">#{{ t }}</span>
+      {% endfor %}
+    </div>
+
+    <div class="text-center">
+      <button class="btn-toggle">👀 View Steps</button>
+    </div>
+
+    <div class="steps-section mt-3">
+      <div class="ingredients">
+        <h6 class="fw-bold">🧂 Ingredients:</h6>
+        <ul class="small text-muted ps-3 mb-2">
+          {% for ing in r.ingredients %}
+            <li>{{ ing }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="steps">
+        <h6 class="fw-bold">👩‍🍳 Steps to Cook:</h6>
+        <ol class="small text-muted ps-3">
+          {% for step in r.steps %}
+            <li>{{ step }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p class="text-center text-muted">No recipes available yet 🍴</p>
+  {% endfor %}
+</div>
+
+<script>
+  // 👀 Toggle Steps
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const section = btn.closest('.recipe-card').querySelector('.steps-section');
+        const isVisible = section.style.display === 'block';
+        section.style.display = isVisible ? 'none' : 'block';
+        btn.textContent = isVisible ? '👀 View Steps' : '🙈 Hide Steps';
+      });
+    });
+
+    // 🔍 Live Search Filter
+    const searchInput = document.getElementById('recipeSearch');
+    const recipes = document.querySelectorAll('.recipe-card');
+
+    searchInput.addEventListener('keyup', () => {
+      const query = searchInput.value.toLowerCase();
+      recipes.forEach(card => {
+        const name = card.getAttribute('data-name');
+        const tags = card.getAttribute('data-tags');
+        const ingredients = card.getAttribute('data-ingredients');
+        if (name.includes(query) || tags.includes(query) || ingredients.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}

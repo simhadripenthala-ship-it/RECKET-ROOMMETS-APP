@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>🍳 Food Calculators</h2>
+
+<div class="mb-3">
+    <!-- Buttons for each calculator -->
+    <button class="btn btn-primary w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#riceCalc">Rice 🍚</button>
+    <button class="btn btn-success w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#whiteRavaCalc">White Rava 🌾</button>
+    <button class="btn btn-warning w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#natuRavaCalc">Natu Rava 🌾</button>
+    <button class="btn btn-info w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#dosaBatterCalc">Dosa Batter 🥞</button>
+</div>
+
+<!-- Rice Calculator -->
+<div class="collapse mb-3" id="riceCalc">
+    <div class="card p-3">
+        <h5>Rice Calculator 🍚</h5>
+        <form method="POST" action="{{ url_for('rice_calculator') }}" class="row g-2">
+            <div class="col-md-4">
+                <label>People</label>
+                <input type="number" class="form-control" name="people" min="1" required>
+            </div>
+            <div class="col-md-4">
+                <label>Appetite</label>
+                <select class="form-select" name="appetite">
+                    <option value="low">Low (~70 g/person)</option>
+                    <option value="normal" selected>Normal (~90 g/person)</option>
+                    <option value="high">High (~120 g/person)</option>
+                </select>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-dark w-100">Calculate</button>
+            </div>
+        </form>
+        {% if rice_result %}
+        <div class="mt-3">
+            <ul>
+                <li>People: {{ rice_result.people }}</li>
+                <li>Per Person: {{ rice_result.per_person }} g</li>
+                <li>Total Rice: {{ rice_result.rice_grams }} g</li>
+                <li>Water Needed: {{ rice_result.water_ml }} ml</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- White Rava Calculator -->
+<div class="collapse mb-3" id="whiteRavaCalc">
+    <div class="card p-3">
+        <h5>White Rava Calculator 🌾</h5>
+        <form method="POST" action="{{ url_for('white_rava_calculator') }}" class="row g-2">
+            <div class="col-md-4">
+                <label>People</label>
+                <input type="number" class="form-control" name="people" min="1" required>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-dark w-100">Calculate</button>
+            </div>
+        </form>
+        {% if white_rava_result %}
+        <div class="mt-3">
+            <ul>
+                <li>People: {{ white_rava_result.people }}</li>
+                <li>Total Rava: {{ white_rava_result.total_rava }} g</li>
+                <li>Water Needed: {{ white_rava_result.water_ml }} ml</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Natu Rava Calculator -->
+<div class="collapse mb-3" id="natuRavaCalc">
+    <div class="card p-3">
+        <h5>Natu Rava Calculator 🌾</h5>
+        <form method="POST" action="{{ url_for('natu_rava_calculator') }}" class="row g-2">
+            <div class="col-md-4">
+                <label>People</label>
+                <input type="number" class="form-control" name="people" min="1" required>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-dark w-100">Calculate</button>
+            </div>
+        </form>
+        {% if natu_rava_result %}
+        <div class="mt-3">
+            <ul>
+                <li>People: {{ natu_rava_result.people }}</li>
+                <li>Total Rava: {{ natu_rava_result.total_rava }} g</li>
+                <li>Water Needed: {{ natu_rava_result.water_ml }} ml</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Dosa Batter Calculator -->
+<div class="collapse mb-3" id="dosaBatterCalc">
+    <div class="card p-3">
+        <h5>Dosa Batter Calculator 🥞</h5>
+        <form method="POST" action="{{ url_for('dosa_batter_calculator') }}" class="row g-2">
+            <div class="col-md-4">
+                <label>Rice (grams)</label>
+                <input type="number" class="form-control" name="rice" step="10" min="100" required>
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button class="btn btn-dark w-100">Calculate</button>
+            </div>
+        </form>
+        {% if dosa_batter_result %}
+        <div class="mt-3">
+            <ul>
+                <li>Rice: {{ dosa_batter_result.rice }} g</li>
+                <li>Urad Dal: {{ dosa_batter_result.urad_dal }} g</li>
+                <li>Total Batter: {{ dosa_batter_result.total_batter }} g</li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome, {{ username }}!</h2> 
+<div class="row mt-4 g-3 text-center">
+    <div class="col-md-3">
+        <a href="{{ url_for('expenses_view') }}" class="btn btn-outline-primary w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">💰</span>
+            <small style="font-size: 0.8rem;">Expenses</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('roommates_view') }}" class="btn btn-outline-success w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">🧑‍🤝‍🧑</span>
+            <small style="font-size: 0.8rem;">Roommates</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('chitts') }}" class="btn btn-outline-warning w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">📝</span>
+            <small style="font-size: 0.8rem;">Chitts</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('tiffin_view') }}" class="btn btn-outline-info w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">🍲</span>
+            <small style="font-size: 0.8rem;">Tiffins</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('veggies_view') }}" class="btn btn-outline-secondary w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">🥦</span>
+            <small style="font-size: 0.8rem;">Veggies</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('rice_calculator') }}" class="btn btn-outline-dark w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">🍚</span>
+            <small style="font-size: 0.8rem;">Rice Calculator</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('recipes') }}" class="btn btn-outline-danger w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">📖</span>
+            <small style="font-size: 0.8rem;">Recipes</small>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a href="{{ url_for('roominfo') }}" class="btn btn-outline-primary w-100 py-3 d-flex flex-column align-items-center justify-content-center">
+            <span style="font-size: 2.5rem; line-height: 1;">ℹ️</span>
+            <small style="font-size: 0.8rem;">RoomInfo</small>
+        </a>
+    </div>
+</div>
+{% endblock %}

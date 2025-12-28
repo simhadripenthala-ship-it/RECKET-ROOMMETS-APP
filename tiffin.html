@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">🍱 50 Delicious Tiffin Recipes</h2>
+  <div class="row">
+    {% set tiffins = [
+      {
+        "emoji": "🍛", "recipe": "Rajma Chawal", "price": 80, "ingredients": "Kidney beans, rice, tomato, onion, garlic, garam masala",
+        "instructions": "Soak rajma overnight. Pressure cook rajma with salt until soft. Heat oil, sauté onions and garlic. Add tomatoes and spices, cook until oil separates. Combine cooked rajma, simmer. Serve with steamed rice."
+      },
+      {
+        "emoji": "🧀", "recipe": "Paneer Butter Masala", "price": 90, "ingredients": "Paneer, butter, tomato, cream, spices",
+        "instructions": "Sauté onions, ginger-garlic. Add pureed tomatoes, cook until oil separates. Mix spices, add paneer cubes. Pour cream, simmer. Serve with naan or rice."
+      },
+      {
+        "emoji": "🍚", "recipe": "Veg Biryani", "price": 85, "ingredients": "Basmati rice, vegetables, yogurt, saffron",
+        "instructions": "Rinse rice, soak for 30 min. Sauté whole spices and onions. Add vegetables, cook 5 min. Add rice, yogurt, spices. Layer rice and veggies. Cook on low for 20 min. Fluff and serve."
+      },
+      {
+        "emoji": "🥞", "recipe": "Masala Dosa", "price": 70, "ingredients": "Dosa batter, potatoes, spices",
+        "instructions": "Ferment batter overnight. Prepare spiced mashed potatoes. Spread thin batter on hot griddle. Place potato filling, fold. Serve with chutney and sambhar."
+      },
+      {
+        "emoji": "🍞", "recipe": "Pav Bhaji", "price": 75, "ingredients": "Vegetables, butter, pav masala, pav buns",
+        "instructions": "Cook vegetables till soft and mash. Sauté onions and tomatoes with spices. Mix vegetables and spices, cook together. Toast buns with butter. Serve bhaji topped with butter and toasted pav."
+      },
+      {
+        "emoji": "🥦", "recipe": "Aloo Gobi", "price": 70, "ingredients": "Potato, cauliflower, tomato, turmeric",
+        "instructions": "Heat oil, sauté cumin seeds. Add onions and green chili, cook till soft. Add ginger and tomatoes, cook till oil separates. Add turmeric and spices. Add potatoes and cauliflower, cook till tender. Garnish with coriander."
+      },
+      {
+        "emoji": "🥣", "recipe": "Idli Sambhar", "price": 60, "ingredients": "Idli batter, dal, tamarind, sambhar spices",
+        "instructions": "Soak and grind rice and urad dal, ferment overnight. Steam batter into idlis. Cook dal, add tamarind water and vegetables for sambhar. Temper mustard seeds and curry leaves, add to sambhar. Serve hot idlis with sambhar and chutney."
+      },
+      {
+        "emoji": "🍲", "recipe": "Chole Bhature", "price": 85, "ingredients": "Chickpeas, tomato, onion, wheat flour",
+        "instructions": "Soak chickpeas overnight, pressure cook till tender. Sauté onions, garlic, and tomatoes. Add spices and cooked chickpeas, simmer. Prepare dough for bhature, roll and deep fry. Serve spicy chole with fried bhature."
+      },
+      {
+        "emoji": "🥘", "recipe": "Dal Tadka", "price": 65, "ingredients": "Toor dal, ghee, garlic, cumin",
+        "instructions": "Cook toor dal with turmeric and salt. Heat ghee, sauté cumin seeds, garlic, and onions. Pour tempering over dal. Add garam masala and coriander. Serve hot with rice."
+      },
+      {
+        "emoji": "🍢", "recipe": "Kathi Roll", "price": 80, "ingredients": "Roti, paneer/chicken, onions, sauces",
+        "instructions": "Prepare dough for paratha, roll thin and cook. Marinate paneer/chicken in spices. Sauté onions and marinated filling. Place filling on paratha, roll and serve with chutney."
+      },
+      {
+        "emoji": "🥗", "recipe": "Poha", "price": 50, "ingredients": "Flattened rice, onion, mustard seeds, peanuts",
+        "instructions": "Rinse flattened rice and drain. Heat oil, temper mustard seeds and curry leaves. Sauté onions, add peanuts and spices. Add poha and mix gently. Cook for few minutes, garnish with coriander."
+      },
+      {
+        "emoji": "🍳", "recipe": "Egg Curry", "price": 80, "ingredients": "Boiled eggs, tomato, onion, spices",
+        "instructions": "Boil eggs and peel. Sauté onions, ginger-garlic, add tomatoes and cook to gravy. Add spices. Add eggs, simmer for 10 mins. Serve hot."
+      },
+      {
+        "emoji": "🍝", "recipe": "Veg Noodles", "price": 70, "ingredients": "Noodles, soy sauce, vegetables",
+        "instructions": "Boil noodles, drain and set aside. Heat oil, stir-fry vegetables and garlic. Add soy sauce and noodles, toss gently. Serve hot."
+      },
+      {
+        "emoji": "🥙", "recipe": "Veg Frankie", "price": 75, "ingredients": "Roti, potato filling, chutney",
+        "instructions": "Prepare spiced mashed potato filling. Roll roti thin, place filling and chutney. Roll and lightly toast on griddle. Serve hot."
+      },
+      {
+        "emoji": "🍠", "recipe": "Aloo Paratha", "price": 60, "ingredients": "Wheat flour, potato, spices, butter",
+        "instructions": "Make dough. Prepare spiced mashed potatoes. Stuff filling into rolled dough, seal and roll gently. Cook on tawa with butter until golden."
+      },
+      {
+        "emoji": "🥩", "recipe": "Keema Curry", "price": 95, "ingredients": "Minced meat, peas, tomato, spices",
+        "instructions": "Sauté onions, garlic, add minced meat and cook. Add spices and tomatoes, cook till oil separates. Add peas, simmer. Serve hot."
+      },
+      {
+        "emoji": "🍜", "recipe": "Maggie Masala", "price": 45, "ingredients": "Instant noodles, vegetables, masala",
+        "instructions": "Boil noodles. Sauté veggies with Maggie masala. Add noodles and mix well. Cook until done."
+      },
+      {
+        "emoji": "🍕", "recipe": "Paneer Tikka", "price": 90, "ingredients": "Paneer, curd, tandoori masala",
+        "instructions": "Marinate paneer cubes in curd and spices. Grill or bake until golden. Serve with chutney."
+      },
+      {
+        "emoji": "🍖", "recipe": "Chicken Curry", "price": 100, "ingredients": "Chicken, onion, tomato, spices",
+        "instructions": "Sauté onions, ginger-garlic paste. Add tomatoes and spices. Add chicken, cook covered till tender. Garnish and serve."
+      },
+      {
+        "emoji": "🍤", "recipe": "Prawn Masala", "price": 120, "ingredients": "Prawn, garlic, tomato, coconut",
+        "instructions": "Sauté garlic, onions, add tomatoes and spices. Add prawns and cook. Add coconut milk and simmer. Serve hot."
+      },
+      {
+        "emoji": "🥚", "recipe": "Omelette Sandwich", "price": 55, "ingredients": "Eggs, bread, butter",
+        "instructions": "Beat eggs with spices. Cook omelette. Butter bread slices, place omelette inside and serve."
+      },
+      {
+        "emoji": "🍘", "recipe": "Khichdi", "price": 65, "ingredients": "Rice, dal, ghee, cumin",
+        "instructions": "Wash rice and dal. Cook together with salt and turmeric. Temper cumin and ghee, add on top. Serve hot."
+      },
+      {
+        "emoji": "🍲", "recipe": "Mix Veg Curry", "price": 75, "ingredients": "Mixed vegetables, tomato, masala",
+        "instructions": "Sauté onions, ginger-garlic. Add tomatoes and spices. Add vegetables, cook until soft."
+      },
+      {
+        "emoji": "🥬", "recipe": "Palak Paneer", "price": 85, "ingredients": "Spinach, paneer, cream, garlic",
+        "instructions": "Blanch and puree spinach. Sauté garlic, add spinach puree. Add paneer cubes and cream. Simmer and serve."
+      },
+      {
+        "emoji": "🌮", "recipe": "Veg Taco Indian Style", "price": 90, "ingredients": "Taco shell, beans, paneer, veggies",
+        "instructions": "Prepare spicy Indian filling with beans and paneer. Stuff into taco shells. Serve warm."
+      },
+      {
+        "emoji": "🥔", "recipe": "Jeera Aloo", "price": 60, "ingredients": "Potato, cumin, coriander",
+        "instructions": "Boil potatoes. Sauté cumin seeds, add potatoes and spices. Cook till crisp. Garnish coriander."
+      },
+      {
+        "emoji": "🍅", "recipe": "Tomato Rice", "price": 65, "ingredients": "Rice, tomato, curry leaves, mustard",
+        "instructions": "Cook rice. Sauté mustard, curry leaves, tomatoes and spices. Mix rice and seasonings together. Serve."
+      },
+      {
+        "emoji": "🌯", "recipe": "Veg Wrap", "price": 70, "ingredients": "Roti, cabbage, carrot, mayo",
+        "instructions": "Sauté vegetables, add spices. Spread filling on roti with mayo and roll up."
+      },
+      {
+        "emoji": "🥖", "recipe": "Paneer Sandwich", "price": 65, "ingredients": "Bread, paneer, tomato, chutney",
+        "instructions": "Prepare spiced paneer filling. Spread on bread, add tomato and chutney, grill till golden."
+      },
+      {
+        "emoji": "🍵", "recipe": "Upma", "price": 55, "ingredients": "Rava, onion, mustard, curry leaves",
+        "instructions": "Roast rava. Sauté mustard, curry leaves, onion. Add water and rava, cook till soft."
+      },
+      {
+        "emoji": "🥒", "recipe": "Curd Rice", "price": 60, "ingredients": "Rice, curd, mustard, curry leaves",
+        "instructions": "Cook rice. Mix with curd, salt. Temper mustard seeds and curry leaves, add to rice."
+      },
+      {
+        "emoji": "🥔", "recipe": "Dum Aloo", "price": 80, "ingredients": "Baby potatoes, tomato, curd, garam masala",
+        "instructions": "Fry potatoes. Prepare spiced yogurt gravy. Cook potatoes in gravy with cover."
+      },
+      {
+        "emoji": "🍗", "recipe": "Chicken Biryani", "price": 120, "ingredients": "Rice, chicken, saffron, spices",
+        "instructions": "Marinate chicken. Cook rice 70%. Layer chicken and rice, cook on dum till done."
+      },
+      {
+        "emoji": "🥘", "recipe": "Baingan Bharta", "price": 70, "ingredients": "Eggplant, tomato, onion, garlic",
+        "instructions": "Roast eggplant till soft. Mash and sauté with onions, tomatoes, and spices."
+      },
+      {
+        "emoji": "🍠", "recipe": "Sweet Potato Chaat", "price": 55, "ingredients": "Sweet potato, lemon, chaat masala",
+        "instructions": "Boil sweet potatoes, cube. Mix with lemon juice, chaat masala, and salt."
+      },
+      {
+        "emoji": "🥕", "recipe": "Gajar Matar Sabzi", "price": 65, "ingredients": "Carrot, peas, cumin, coriander",
+        "instructions": "Sauté cumin seeds. Add carrots and peas, cook till tender. Add spices."
+      },
+      {
+        "emoji": "🥦", "recipe": "Broccoli Stir Fry", "price": 85, "ingredients": "Broccoli, garlic, soy sauce",
+        "instructions": "Stir fry garlic, add broccoli. Add soy sauce, cook till crisp tender."
+      },
+      {
+        "emoji": "🍋", "recipe": "Lemon Rice", "price": 65, "ingredients": "Rice, lemon juice, curry leaves",
+        "instructions": "Cook rice. Temper mustard seeds, curry leaves. Mix lemon juice and tempering into rice."
+      },
+      {
+        "emoji": "🥒", "recipe": "Veg Salad Box", "price": 60, "ingredients": "Cucumber, tomato, carrot, beetroot",
+        "instructions": "Chop all veggies finely. Toss with salt, pepper, lemon juice."
+      },
+      {
+        "emoji": "🍲", "recipe": "Kadhi Pakora", "price": 80, "ingredients": "Besan, curd, spices, onion",
+        "instructions": "Prepare pakora batter, deep fry pakoras. Cook spiced curd with besan. Add pakoras and simmer."
+      },
+      {
+        "emoji": "🥬", "recipe": "Methi Thepla", "price": 65, "ingredients": "Wheat flour, methi, curd, spices",
+        "instructions": "Knead dough with wheat flour, methi leaves, curd and spices. Roll thin and cook on tawa."
+      },
+      {
+        "emoji": "🍜", "recipe": "Ramen Desi Style", "price": 90, "ingredients": "Noodles, soy, chili oil, veggies",
+        "instructions": "Boil noodles. Stir fry veggies in chili oil, soy sauce. Mix noodles with veggies."
+      },
+      {
+        "emoji": "🍛", "recipe": "Sambar Rice", "price": 70, "ingredients": "Rice, toor dal, tamarind, vegetables",
+        "instructions": "Cook toor dal and tamarind water with veggies and spices. Mix with cooked rice and simmer."
+      },
+      {
+        "emoji": "🥨", "recipe": "Bread Pakora", "price": 50, "ingredients": "Bread, gram flour, potato filling",
+        "instructions": "Prepare potato filling, stuff in bread slices. Dip in gram flour batter, deep fry."
+      },
+      {
+        "emoji": "🥧", "recipe": "Vegetable Cutlet", "price": 60, "ingredients": "Potato, carrot, breadcrumbs",
+        "instructions": "Mix mashed potato and carrot with spices. Shape patties, coat with breadcrumbs, deep fry."
+      },
+      {
+        "emoji": "🥣", "recipe": "Moong Dal Chilla", "price": 60, "ingredients": "Moong dal batter, onion, chili",
+        "instructions": "Prepare batter, add onions and chili. Spread thin on griddle, cook till golden."
+      },
+      {
+        "emoji": "🍵", "recipe": "Sabudana Khichdi", "price": 65, "ingredients": "Sabudana, peanuts, potato, curry leaves",
+        "instructions": "Soak sabudana, sauté peanuts and potatoes, add sabudana, cook till translucent."
+      },
+      {
+        "emoji": "🍚", "recipe": "Curd Pulao", "price": 70, "ingredients": "Rice, curd, spices",
+        "instructions": "Cook rice and allow to cool slightly. Mix with curd and tempering. Serve."
+      },
+      {
+        "emoji": "🍩", "recipe": "Medu Vada", "price": 60, "ingredients": "Urad dal, onion, curry leaves",
+        "instructions": "Soak urad dal. Grind to batter. Add chopped onions and curry leaves. Shape vadas and deep fry."
+      },
+      {
+        "emoji": "🥟", "recipe": "Momos", "price": 80, "ingredients": "Maida, cabbage, carrot, soy sauce",
+        "instructions": "Prepare dough, roll thin. Prepare vegetable filling. Stuff and fold momos. Steam till cooked."
+      }
+    ] %}
+
+    {% for t in tiffins %}
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm p-3 h-100">
+        <h5 class="fw-bold text-center">{{ t.emoji }} {{ t.recipe }}</h5>
+        <p class="mb-1"><b>💰 Price:</b> ₹{{ t.price }}</p>
+        <p class="mb-1"><b>🥬 Ingredients:</b> {{ t.ingredients }}</p>
+        <p><b>👩‍🍳 Step-by-step Instructions:</b></p>
+        <ol>
+          {% for step in t.instructions.split('. ') %}
+          <li>{{ step|trim }}{% if not step.endswith('.') %}.{% endif %}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

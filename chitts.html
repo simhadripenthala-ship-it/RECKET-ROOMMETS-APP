@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="page-title text-center mb-4">🎯 <strong>Chitts Task Spinner</strong></h2>
+
+<!-- 🌟 Add Extra Name Form -->
+<form method="POST" class="d-flex justify-content-center mb-4">
+  <input type="text" name="extra_name" placeholder="✏️ Add extra name..." class="form-control w-25 me-2 shadow-sm">
+  <button class="btn btn-primary shadow">➕ Add</button>
+</form>
+
+<!-- 🎡 Spinner Wheel -->
+<div class="text-center mb-4">
+  <canvas id="wheelCanvas" width="400" height="400"></canvas>
+  <div class="mt-3">
+    <button id="spinBtn" class="btn btn-success me-2 shadow">🎡 Spin</button>
+    <button id="stopBtn" class="btn btn-danger shadow">🛑 Stop</button>
+  </div>
+</div>
+
+<!-- 🧾 Task Results -->
+<div id="tasksResult" class="mt-4">
+  <h4 class="text-center mb-3">📋 <strong>Assigned Tasks</strong></h4>
+  <div id="taskList" class="container"></div>
+</div>
+
+<!-- ✅ Safely pass roommates list -->
+<script id="roommates-data" type="application/json">
+  {{ roommates | tojson | safe }}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // ---------- 🧍‍♂️ Load Roommates Data Safely ----------
+  const roommates = JSON.parse(document.getElementById("roommates-data").textContent);
+
+  // ---------- 🧹 Task Definitions ----------
+  const task1 = [
+    "💧 Fetching Water",
+    "🍛 Cooking Curry",
+    "🍳 Cooking Breakfast",
+    "🔪 Cutting Veggies",
+    "🛒 Buying Veggies",
+    "🍽️ Washing Bowls"
+  ];
+
+  const task2 = [
+    "🍚 Cooking Rice",
+    "🧽 Cleaning Plank",
+    "🍴 Serving",
+    "🗑️ Maintaining Dustbin",
+    "🧹 Sweeping Kitchen",
+    "🧼 Sweeping Hall"
+  ];
+
+  const bathroomTask = "🚿 Cleaning Bathroom (Every 2 Weeks)";
+
+  // ---------- 🎡 Wheel Setup ----------
+  const ctx = document.getElementById("wheelCanvas").getContext("2d");
+  const wheel = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: roommates,
+      datasets: [{
+        data: Array(roommates.length).fill(1),
+        backgroundColor: roommates.map(() =>
+          `hsl(${Math.random() * 360}, 80%, 65%)`
+        )
+      }]
+    },
+    options: {
+      responsive: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: "bottom",
+          labels: { color: "#333", font: { size: 14 } }
+        }
+      }
+    }
+  });
+
+  let spinning = false;
+  let angle = 0;
+  let spinInterval;
+
+  // 🎡 Start spinning
+  document.getElementById("spinBtn").onclick = () => {
+    if (spinning) return;
+    spinning = true;
+    spinInterval = setInterval(() => {
+      angle += 10;
+      document.getElementById("wheelCanvas").style.transform = `rotate(${angle}deg)`;
+    }, 25);
+  };
+
+  // 🛑 Stop spinning and assign tasks
+  document.getElementById("stopBtn").onclick = () => {
+    if (!spinning) return;
+    clearInterval(spinInterval);
+    spinning = false;
+    assignTasks();
+  };
+
+  // ---------- 🧩 Task Distribution ----------
+  function assignTasks() {
+    const shuffled1 = shuffle([...task1]);
+    const shuffled2 = shuffle([...task2]);
+    const results = [];
+
+    roommates.forEach((name, i) => {
+      const t1 = shuffled1[i % shuffled1.length];
+      const t2 = shuffled2[i % shuffled2.length];
+      results.push({ name, task1: t1, task2: t2 });
+    });
+
+    displayTasks(results);
+  }
+
+  // 🔀 Shuffle Helper
+  function shuffle(arr) {
+    return arr.sort(() => Math.random() - 0.5);
+  }
+
+  // 📝 Display Assigned Tasks
+  function displayTasks(data) {
+    const list = document.getElementById("taskList");
+    list.innerHTML = "";
+    data.forEach((r) => {
+      const div = document.createElement("div");
+      div.className = "card p-3 mb-3 shadow-sm";
+      div.innerHTML = `
+        <strong>👤 ${r.name}</strong><br>
+        🔹 ${r.task1}<br>
+        🔸 ${r.task2}<br>
+        🧼 ${bathroomTask}
+      `;
+      list.appendChild(div);
+    });
+  }
+</script>
+
+{% endblock %}

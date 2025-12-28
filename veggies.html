@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/veggie.css') }}">
+{% endblock %}
+{% block content %}
+<h2>Veggies</h2>
+
+<div class="card p-3 mb-3">
+  <form method="POST" class="row g-2 veggie-form">
+    <div class="col-md-3">
+      <label>Name</label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="col-md-3">
+      <label>Quantity (kg)</label>
+      <input type="number" name="quantity" step="0.01" class="form-control">
+    </div>
+    <div class="col-md-3">
+      <label>Cost per kg</label>
+      <input type="number" name="cost" step="0.01" class="form-control">
+    </div>
+    <div class="col-md-12">
+      <label>Curry Recipe</label>
+      <textarea name="curry_recipe" class="form-control" rows="3" placeholder="How to cook..."></textarea>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-secondary mt-2">Add Veggie</button>
+    </div>
+  </form>
+</div>
+
+<table class="table veggie-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Quantity (kg)</th>
+      <th>Cost per kg</th>
+      <th>Curry Recipe</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for v in veggies %}
+    <tr>
+      <td class="name">{{ v.name }}</td>
+      <td>{{ v.quantity_kg }}</td>
+      <td>{{ v.cost_per_kg }}</td>
+      <td style="white-space: pre-wrap">{{ v.curry_recipe }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('delete_veggie', veggie_id=v.id) }}" onsubmit="return confirm('Are you sure you want to delete this veggie?');">
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

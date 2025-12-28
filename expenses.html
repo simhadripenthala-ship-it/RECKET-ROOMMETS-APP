@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3 text-center">Monthly Expenses Calculator</h2>
+
+<div class="card p-3 mb-3 shadow-sm">
+    <form method="POST">
+        <div class="mb-3">
+            <label><strong>Total Room Expenditure (₹)</strong></label>
+            <input type="number" name="total_exp" step="0.01" class="form-control" 
+                   value="{{ total_exp or '' }}" placeholder="Enter total monthly expense" required>
+        </div>
+
+        <div class="mb-3">
+            <label><strong>Number of Persons Paying Rent</strong></label>
+            <input type="number" name="num_persons" min="1" value="{{ num_persons or '' }}" 
+                   class="form-control" placeholder="e.g. 5" required>
+        </div>
+
+        <div class="row g-2">
+            <div class="col-md-6">
+                <label>Add Extra Item (optional)</label>
+                <input type="text" name="add_label" class="form-control" placeholder="e.g. Cleaning Supplies">
+            </div>
+            <div class="col-md-6">
+                <label>Amount (₹)</label>
+                <input type="number" name="add_amount" step="0.01" class="form-control" placeholder="0.00">
+            </div>
+        </div>
+
+        <button class="btn btn-primary mt-3 w-100">Calculate</button>
+    </form>
+</div>
+
+{% if total_exp %}
+<div class="card p-3 shadow-sm">
+    <h4>Fixed Payments</h4>
+    <ul>
+        <li>Gas Bill: ₹300.00</li>
+        <li>Water Bill: ₹100.00</li>
+        <li>Current Bill: ₹300.00</li>
+        <li>Room Rent ({{ num_persons }} × ₹1100): ₹{{ "%.2f"|format(num_persons * 1100) }}</li>
+    </ul>
+
+    <hr>
+
+    {% if custom_items and custom_items|length > 0 %}
+    <h5>Extra Items</h5>
+    <ul>
+        {% for i in custom_items %}
+        <li>{{ i.label }} : ₹{{ "%.2f"|format(i.amount) }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% endif %}
+
+    <h5><strong>Total Expenditure:</strong> ₹{{ "%.2f"|format(total_exp or 0) }}</h5>
+    <h5><strong>Fixed Payments Total:</strong> ₹{{ "%.2f"|format(fixed_total or 0) }}</h5>
+    <h4 class="mt-2 text-success"><strong>Balance Amount:</strong> ₹{{ "%.2f"|format(balance_money or 0) }}</h4>
+</div>
+{% endif %}
+{% endblock %}
